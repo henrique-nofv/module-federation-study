@@ -1,5 +1,5 @@
 <template>
-    <h1>
-       Home component
+    <h1 style="background: green">
+       Vindo do vue github list
     </h1>
 </template>

@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <div class="nav">
-      <router-link to="/">Home</router-link>
-    </div>
+    <h1>Sou o Vue GithubList</h1>
     <router-view />
   </div>
 </template>

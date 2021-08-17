@@ -11,11 +11,6 @@ module.exports = {
   entry: {
     main: "./src/index.js",
   },
-  output: {
-    filename: "[name].[contenthash:8].js",
-    path: path.resolve(__dirname, "dist"),
-    chunkFilename: "[name].[contenthash:8].js",
-  },
   module: {
     rules: [
       {
@@ -65,21 +60,23 @@ module.exports = {
   plugins: [
     new ModuleFederationPlugin({
         name: "vueGithubList",
-        library: { type: "var", name: "vueGithubList" },
         filename: "remoteEntry.js",
         exposes: {
             "./Home": "./src/views/Home.vue",
         },
         shared: [{
             ...deps
-        }]
+        }],
+        shared: [
+          {
+              vue: {
+                  singleton: true
+              }
+          }
+        ]
     }),
     new VueLoaderPlugin(),
     new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin({
-      filename: "[name].[contenthash:8].css",
-      chunkFilename: "[name].[contenthash:8].css",
-    }),
     new htmlWebpackPlugin({
       template: path.resolve(__dirname, "public", "index.html"),
       favicon: "./public/favicon.ico",
@@ -90,20 +87,6 @@ module.exports = {
       vue$: "vue/dist/vue.runtime.esm.js",
     },
     extensions: ["*", ".js", ".vue", ".json"],
-  },
-  optimization: {
-    moduleIds: "hashed",
-    runtimeChunk: "single",
-    splitChunks: {
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name: "vendors",
-          priority: -10,
-          chunks: "all",
-        },
-      },
-    },
   },
   devServer: {
     historyApiFallback: true,
