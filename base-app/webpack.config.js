@@ -62,7 +62,7 @@ module.exports = {
       name: "baseApp",
       filename: "remoteEntry.js",
       remotes: {
-        vueGithubList: "vueGithubList@http://localhost:8081/remoteEntry.js",
+        vueGithubList: "vueGithubList@https://vue-github-list.vercel.app/remoteEntry.js",
       },
       shared: [{
         ...deps
