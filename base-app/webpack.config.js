@@ -1,6 +1,5 @@
 const { VueLoaderPlugin } = require("vue-loader");
 const htmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { ModuleFederationPlugin } = require('webpack').container;
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const autoprefixer = require("autoprefixer");
@@ -32,6 +31,10 @@ module.exports = {
         },
       },
       {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
         test: /\.(png|jpe?g|gif|webm|mp4|svg)$/,
         loader: "file-loader",
         options: {
@@ -39,21 +42,6 @@ module.exports = {
           outputPath: "assets/img",
           esModule: false,
         },
-      },
-      {
-        test: /\.s?css$/,
-        use: [
-          "style-loader",
-          MiniCssExtractPlugin.loader,
-          "css-loader",
-          {
-            loader: "postcss-loader",
-            options: {
-              plugins: () => [autoprefixer()],
-            },
-          },
-          "sass-loader",
-        ],
       },
     ],
   },

@@ -1,7 +1,6 @@
 const { VueLoaderPlugin } = require("vue-loader");
 const htmlWebpackPlugin = require("html-webpack-plugin");
 const { ModuleFederationPlugin } = require('webpack').container;
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const deps = require("./package.json").dependencies;
 const autoprefixer = require("autoprefixer");
@@ -41,19 +40,8 @@ module.exports = {
         },
       },
       {
-        test: /\.s?css$/,
-        use: [
-          "style-loader",
-          MiniCssExtractPlugin.loader,
-          "css-loader",
-          {
-            loader: "postcss-loader",
-            options: {
-              plugins: () => [autoprefixer()],
-            },
-          },
-          "sass-loader",
-        ],
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
